@@ -32,7 +32,7 @@ public class DataReceiver extends com.getpebble.android.kit.PebbleKit.PebbleData
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 switch (cmd) {
                     case STRAVA_TOGGLE:
-                        intent.setData(Uri.parse("http://strava.com/nfc/record"));
+                        intent.setData(Uri.parse("http://strava.com/nfc/record/toggle"));
                         break;
                     case STRAVA_START:
                         intent.setData(Uri.parse("http://strava.com/nfc/record"));
