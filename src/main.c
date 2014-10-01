@@ -42,7 +42,6 @@ static void sent_callback(DictionaryIterator *iter, void *context) {
  }
 
 static void action_bar_layer_select_handler(ClickRecognizerRef recognizer, void *context) {
-	//spedire comando ad app android
 	DictionaryIterator *iter;
 	app_message_outbox_begin(&iter);
 	uint x = STRAVA_TOGGLE;
@@ -55,7 +54,6 @@ static void action_bar_layer_select_handler(ClickRecognizerRef recognizer, void 
 }
 
 static void action_bar_layer_up_handler(ClickRecognizerRef recognizer, void *context) {
-	//spedire comando ad app android
 	DictionaryIterator *iter;
 	app_message_outbox_begin(&iter);
 	uint x = STRAVA_START;
@@ -68,7 +66,6 @@ static void action_bar_layer_up_handler(ClickRecognizerRef recognizer, void *con
 }
 
 static void action_bar_layer_down_handler(ClickRecognizerRef recognizer, void *context) {
-	//spedire comando ad app android
 	DictionaryIterator *iter;
 	app_message_outbox_begin(&iter);
 	uint x = STRAVA_STOP;
