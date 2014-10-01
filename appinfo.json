@@ -1,0 +1,41 @@
+{
+    "appKeys": {},
+    "capabilities": [
+        ""
+    ],
+    "companyName": "giovanni.zilli@gmail.com",
+    "longName": "Strava Starter",
+    "projectType": "native",
+    "resources": {
+        "media": [
+            {
+                "file": "images/icon_stop.png",
+                "name": "ICON_STOP",
+                "type": "png"
+            },
+            {
+                "file": "images/icon_play.png",
+                "name": "ICON_PLAY",
+                "type": "png"
+            },
+            {
+                "file": "images/strava.png",
+                "menuIcon": true,
+                "name": "STRAVA_ICON",
+                "type": "png"
+            },
+            {
+                "file": "images/action_si (1).png",
+                "name": "ICON_OK",
+                "type": "png"
+            }
+        ]
+    },
+    "shortName": "Strava Starter",
+    "uuid": "45bd95bf-0b73-4e94-b03e-dca552f24d25",
+    "versionCode": 1,
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": false
+    }
+}
