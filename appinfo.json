@@ -9,6 +9,12 @@
     "resources": {
         "media": [
             {
+                "file": "images/strava3.png",
+                "menuIcon": true,
+                "name": "MENU",
+                "type": "png"
+            },
+            {
                 "file": "images/icon_stop.png",
                 "name": "ICON_STOP",
                 "type": "png"
@@ -16,12 +22,6 @@
             {
                 "file": "images/icon_play.png",
                 "name": "ICON_PLAY",
-                "type": "png"
-            },
-            {
-                "file": "images/strava.png",
-                "menuIcon": true,
-                "name": "STRAVA_ICON",
                 "type": "png"
             },
             {
