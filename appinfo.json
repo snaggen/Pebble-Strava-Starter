@@ -1,40 +1,38 @@
 {
-    "appKeys": {},
+    "appKeys": {
+        "GPS_COOR": 6,
+        "GPS_ERR": 0
+    },
     "capabilities": [
-        ""
+        "location"
     ],
-    "companyName": "giovanni.zilli@gmail.com",
+    "companyName": "Giovanni Zilli",
     "longName": "Strava Starter",
     "projectType": "native",
     "resources": {
         "media": [
             {
+                "file": "images/strava_starter_imgs.png",
+                "name": "IMAGE_ALL",
+                "type": "png"
+            },
+            {
                 "file": "images/strava3.png",
                 "menuIcon": true,
                 "name": "MENU",
                 "type": "png"
-            },
-            {
-                "file": "images/icon_stop.png",
-                "name": "ICON_STOP",
-                "type": "png"
-            },
-            {
-                "file": "images/icon_play.png",
-                "name": "ICON_PLAY",
-                "type": "png"
-            },
-            {
-                "file": "images/action_si (1).png",
-                "name": "ICON_OK",
-                "type": "png"
             }
         ]
     },
+    "sdkVersion": "3",
     "shortName": "Strava Starter",
+    "targetPlatforms": [
+        "aplite",
+        "basalt",
+        "chalk"
+    ],
     "uuid": "45bd95bf-0b73-4e94-b03e-dca552f24d25",
-    "versionCode": 1,
-    "versionLabel": "1.0",
+    "versionLabel": "1.7",
     "watchapp": {
         "watchface": false
     }
