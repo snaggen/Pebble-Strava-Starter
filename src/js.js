@@ -1,12 +1,12 @@
 var debug = true;
 
 var locationOptions = {timeout: 15000, enableHighAccuracy: true, maximumAge: 0}; 
-var accuracyMeters = 50;
+var accuracyMeters = 5;
 
 function fetch_location_data(pos) {
 	if (debug) console.log("fetched_location "+pos.coords.latitude + ',' + pos.coords.longitude + ' - ' + pos.coords.accuracy + 'm ');
 	if (pos.coords.accuracy <= accuracyMeters)
-		Pebble.sendAppMessage({GPS_COOR: pos.coords.latitude + ',' + pos.coords.longitude});
+		Pebble.sendAppMessage({GPS_COOR: Math.floor(pos.coords.latitude*10000+0.5)/10000 + ',' + Math.floor(pos.coords.longitude*10000+0.5)/10000});
 	else
 		navigator.geolocation.getCurrentPosition(fetch_location_data, fetch_location_error, locationOptions);
 }
