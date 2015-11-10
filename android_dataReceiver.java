@@ -24,24 +24,27 @@ public class DataReceiver extends com.getpebble.android.kit.PebbleKit.PebbleData
 
     @Override
     public void receiveData(final Context context, final int transactionId, final PebbleDictionary data) {
-        final int cmd = data.getUnsignedInteger(1).intValue();
+        final int cmd = data.getUnsignedIntegerAsLong(1).intValue();
 
         PebbleKit.sendAckToPebble(context, transactionId);
 
         Intent intent = new Intent(Intent.ACTION_RUN);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                switch (cmd) {
-                    case STRAVA_TOGGLE:
-                        intent.setData(Uri.parse("http://strava.com/nfc/record/toggle"));
-                        break;
-                    case STRAVA_START:
-                        intent.setData(Uri.parse("http://strava.com/nfc/record"));
-                        break;
-                    case STRAVA_STOP:
-                        intent.setData(Uri.parse("http://strava.com/nfc/record/stop"));
-                        break;
-                }
+        intent.putExtra("show_activity",false);
+        switch (cmd) {
+            case STRAVA_START_RUN:
+                intent.setData(Uri.parse("http://strava.com/nfc/record"));
+                intent.putExtra("rideType","Run");
+                break;
+            case STRAVA_START_RIDE:
+                intent.setData(Uri.parse("http://strava.com/nfc/record"));
+                intent.putExtra("rideType","Ride");
+                break;
+            case STRAVA_STOP:
+                intent.setData(Uri.parse("http://strava.com/nfc/record/stop"));
+                break;
+        }
         context.startActivity(intent);
-            }
+    }
 
 }
