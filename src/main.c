@@ -58,7 +58,6 @@ static void received_handler(DictionaryIterator *iter, void *context){
 		if (tuple && tuple->type == TUPLE_CSTRING) {
 			if (DEBUG) APP_LOG(APP_LOG_LEVEL_DEBUG, "GPS: %s", tuple->value->cstring);
 			text_layer_set_text(gps_text_layer, tuple->value->cstring);
-			
 			vibes_long_pulse();
 		}
   } else if (tuple_log->key == GPS_ERR){
@@ -67,7 +66,7 @@ static void received_handler(DictionaryIterator *iter, void *context){
 			if (DEBUG) APP_LOG(APP_LOG_LEVEL_DEBUG, "GPS_ERROR: %s", tuple->value->cstring);
 			text_layer_set_text(gps_text_layer, tuple->value->cstring);
 		
-			static const uint32_t segments[] = { 70, 50, 70, 50, 70 };
+			static const uint32_t segments[] = { 80, 50, 80, 50, 100 };
 			VibePattern pat = {
 				.durations = segments,
 				.num_segments = ARRAY_LENGTH(segments),
@@ -103,7 +102,7 @@ static void action_bar_layer_up_handler(ClickRecognizerRef recognizer, void *con
 	uint x = STRAVA_START_RIDE;
 	Tuplet value = TupletInteger(1, x);
   dict_write_tuplet(iter, &value);
-	//if (DEBUG) APP_LOG(APP_LOG_LEVEL_DEBUG,"%d",dict_calc_buffer_size_from_tuplet(value,1));
+	//if (DEBUG) APP_LOG(APP_LOG_LEVEL_DEBUG,"%d",dict_calc_buffer_size_from_tuplet(value, ARRAY_LENGTH(value)));
 	app_message_outbox_send();
 	if (DEBUG) APP_LOG(APP_LOG_LEVEL_DEBUG,"Pebble Strava Starter Up handler!");
 }
@@ -129,7 +128,7 @@ void pebble_strava_init() {
 	app_message_register_inbox_received(received_handler);
 	app_message_register_outbox_sent(sent_callback);
 	app_message_register_outbox_failed(outbox_failed_handler);
-	app_message_open(256, 256);
+	app_message_open(APP_MESSAGE_INBOX_SIZE_MINIMUM, APP_MESSAGE_OUTBOX_SIZE_MINIMUM);
 	
   window = window_create();
 	
@@ -165,9 +164,13 @@ void pebble_strava_init() {
 	text_layer_set_background_color(text_layer, GColorClear);
   layer_add_child(window_layer, text_layer_get_layer(text_layer));
 	
+	#if defined(PBL_RECT)
 	gps_text_layer = text_layer_create((GRect) { .origin = { 0, bounds.size.h - 18 }, .size = { bounds.size.w - ACTION_BAR_WIDTH, 18 } });
+	#elif defined(PBL_ROUND)
+	gps_text_layer = text_layer_create((GRect) { .origin = { 0, bounds.size.h - 32 }, .size = { bounds.size.w, 18 } });
+	#endif
 	text_layer_set_font(gps_text_layer, fonts_get_system_font(FONT_KEY_GOTHIC_14));
-	//text_layer_set_text(gps_text_layer, "GPS alignment...");
+	text_layer_set_text(gps_text_layer, "GPS alignment...");
   text_layer_set_text_alignment(gps_text_layer, GTextAlignmentCenter);
 	text_layer_set_background_color(gps_text_layer, GColorClear);
   layer_add_child(window_layer, text_layer_get_layer(gps_text_layer));
