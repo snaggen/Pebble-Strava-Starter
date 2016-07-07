@@ -51,7 +51,7 @@ static void layer_action_bar_click_config_provider(void *context) {
 
 static void received_handler(DictionaryIterator *iter, void *context){
 	Tuple *tuple_log = dict_read_first(iter);
-	if (DEBUG) APP_LOG(APP_LOG_LEVEL_DEBUG,"Pebble Strava Starter Message Received: %lu",tuple_log->key);
+	if (DEBUG) APP_LOG(APP_LOG_LEVEL_DEBUG,"Pebble Strava Starter Message Received: %lu",(unsigned long) tuple_log->key);
 	
 	if (tuple_log->key == GPS_COOR){
 		Tuple *tuple = dict_find(iter, GPS_COOR);
@@ -76,10 +76,25 @@ static void received_handler(DictionaryIterator *iter, void *context){
 	}
 }
 
+static void prv_exit_application(void *data) {
+  // App can exit to return directly to their default watchface
+  exit_reason_set(APP_EXIT_ACTION_PERFORMED_SUCCESSFULLY);
+
+  window_stack_pop_all(true);
+}
+
+static void prv_exit_delay() {
+  // Get the system timeout duration
+  int timeout = preferred_result_display_duration();
+
+  // After the timeout, exit the application
+  app_timer_register(timeout, prv_exit_application, NULL);
+}
+
 static void sent_callback(DictionaryIterator *iter, void *context) {
 	if (DEBUG) APP_LOG(APP_LOG_LEVEL_DEBUG,"Pebble Strava Starter Message Sent!");
-	window_stack_pop_all(true);
- }
+	prv_exit_delay();
+}
 
 static void outbox_failed_handler(DictionaryIterator *iter, AppMessageResult reason, void *context) {
   //text_layer_set_text(s_output_layer, "Error!");
